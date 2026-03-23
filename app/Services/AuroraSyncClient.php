@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 
 class AuroraSyncClient
@@ -115,9 +114,9 @@ class AuroraSyncClient
     private function get(string $path, array $query = []): array
     {
         try {
-            $r = Http::timeout(15)->get($this->base . $path, $query);
+            $r = Http::connectTimeout(3)->timeout(8)->get($this->base . $path, $query);
             return $r->json() ?? [];
-        } catch (ConnectionException) {
+        } catch (\Throwable) {
             return ['error' => 'Cannot reach aurora-sync daemon'];
         }
     }
@@ -125,9 +124,9 @@ class AuroraSyncClient
     private function post(string $path, array $body = []): array
     {
         try {
-            $r = Http::timeout(15)->post($this->base . $path, $body);
+            $r = Http::connectTimeout(3)->timeout(8)->post($this->base . $path, $body);
             return $r->json() ?? [];
-        } catch (ConnectionException) {
+        } catch (\Throwable) {
             return ['error' => 'Cannot reach aurora-sync daemon'];
         }
     }
@@ -135,9 +134,9 @@ class AuroraSyncClient
     private function put(string $path, array $body = []): array
     {
         try {
-            $r = Http::timeout(15)->put($this->base . $path, $body);
+            $r = Http::connectTimeout(3)->timeout(8)->put($this->base . $path, $body);
             return $r->json() ?? [];
-        } catch (ConnectionException) {
+        } catch (\Throwable) {
             return ['error' => 'Cannot reach aurora-sync daemon'];
         }
     }
@@ -145,9 +144,9 @@ class AuroraSyncClient
     private function patch(string $path, array $body = []): array
     {
         try {
-            $r = Http::timeout(15)->patch($this->base . $path, $body);
+            $r = Http::connectTimeout(3)->timeout(8)->patch($this->base . $path, $body);
             return $r->json() ?? [];
-        } catch (ConnectionException) {
+        } catch (\Throwable) {
             return ['error' => 'Cannot reach aurora-sync daemon'];
         }
     }
