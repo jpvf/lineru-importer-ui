@@ -23,6 +23,6 @@ class TwingateStatus extends Component
 
     public function render()
     {
-        return view('livewire.twingate-badge');
+        return view('livewire.twingate-status');
     }
 }
