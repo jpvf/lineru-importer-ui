@@ -18,9 +18,10 @@
             <div class="mt-3 flex items-center gap-3">
                 <button type="button" wire:click="testAurora" class="px-3 py-1.5 text-sm bg-gray-700 hover:bg-gray-600 rounded">Test connection</button>
                 @if(isset($testResults['aurora']))
-                <span class="{{ $testResults['aurora']['ok'] ? 'text-green-400' : 'text-red-400' }} text-sm">
-                    {{ $testResults['aurora']['ok'] ? '✓ Connected' : '✗ ' . ($testResults['aurora']['error'] ?? 'Failed') }}
-                </span>
+                    @php $r = $testResults['aurora']; $ok = $r['ok'] ?? false; @endphp
+                    <span class="{{ $ok ? 'text-green-400' : 'text-red-400' }} text-sm">
+                        {{ $ok ? '✓ Connected' : '✗ ' . ($r['error'] ?? 'Failed') }}
+                    </span>
                 @endif
             </div>
         </div>
@@ -37,9 +38,10 @@
             <div class="mt-3 flex items-center gap-3">
                 <button type="button" wire:click="testLocal" class="px-3 py-1.5 text-sm bg-gray-700 hover:bg-gray-600 rounded">Test connection</button>
                 @if(isset($testResults['local']))
-                <span class="{{ $testResults['local']['ok'] ? 'text-green-400' : 'text-red-400' }} text-sm">
-                    {{ $testResults['local']['ok'] ? '✓ Connected' : '✗ ' . ($testResults['local']['error'] ?? 'Failed') }}
-                </span>
+                    @php $r = $testResults['local']; $ok = $r['ok'] ?? false; @endphp
+                    <span class="{{ $ok ? 'text-green-400' : 'text-red-400' }} text-sm">
+                        {{ $ok ? '✓ Connected' : '✗ ' . ($r['error'] ?? 'Failed') }}
+                    </span>
                 @endif
             </div>
         </div>
@@ -63,9 +65,10 @@
             <div class="mt-3 flex items-center gap-3">
                 <button type="button" wire:click="testTelegram" class="px-3 py-1.5 text-sm bg-gray-700 hover:bg-gray-600 rounded">Send test message</button>
                 @if(isset($testResults['telegram']))
-                <span class="{{ $testResults['telegram']['ok'] ? 'text-green-400' : 'text-red-400' }} text-sm">
-                    {{ $testResults['telegram']['ok'] ? '✓ Sent' : '✗ ' . ($testResults['telegram']['error'] ?? 'Failed') }}
-                </span>
+                    @php $r = $testResults['telegram']; $ok = $r['ok'] ?? false; @endphp
+                    <span class="{{ $ok ? 'text-green-400' : 'text-red-400' }} text-sm">
+                        {{ $ok ? '✓ Sent' : '✗ ' . ($r['error'] ?? 'Failed') }}
+                    </span>
                 @endif
             </div>
         </div>
