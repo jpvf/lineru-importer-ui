@@ -1,6 +1,6 @@
 <div>
     {{-- Twingate warning --}}
-    @if($twingate && !$twingate['success'])
+    @if($twingate && isset($twingate['success']) && !$twingate['success'])
     <div class="mb-4 px-4 py-3 bg-red-900/50 border border-red-700 rounded-lg flex items-center gap-2 text-red-300 text-sm">
         ⚠️ <strong>Twingate unreachable</strong> — {{ $twingate['error'] }}
         <span class="ml-auto text-xs text-red-400">{{ $twingate['checked_at'] ? \Carbon\Carbon::parse($twingate['checked_at'])->diffForHumans() : '' }}</span>
