@@ -22,7 +22,7 @@
         <div class="flex items-center gap-3">
             <span class="text-lg font-bold tracking-tight text-white">⚡ Aurora Sync</span>
         </div>
-        <livewire:twingate-badge />
+        <livewire:twingate-status />
     </header>
 
     {{-- Tab Nav --}}
