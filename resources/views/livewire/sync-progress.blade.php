@@ -47,6 +47,13 @@
             </div>
         </div>
 
+        {{-- Error message --}}
+        @if($job['status'] === 'error' && !empty($job['error_message']))
+        <div class="mb-4 px-3 py-2 bg-red-900/40 border border-red-800 rounded text-sm text-red-300 font-mono break-all">
+            {{ $job['error_message'] }}
+        </div>
+        @endif
+
         {{-- Overall progress --}}
         <div class="space-y-1">
             <div class="flex justify-between text-sm text-gray-400 mb-1">

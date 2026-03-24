@@ -1,24 +1,26 @@
 <div class="flex items-center gap-2 text-xs">
-    @php $ok = is_array($status) && !isset($status['error']) && array_key_exists('success', $status); @endphp
-    @if($ok)
-        @if($status['success'])
+    @php
+        // 'error' from our HTTP client means daemon is unreachable
+        // 'success' key present means daemon responded (even if twingate is down)
+        $daemonOk = is_array($status) && array_key_exists('success', $status);
+    @endphp
+
+    @if(!$daemonOk)
+        <span class="text-gray-600">daemon offline</span>
+    @elseif($status['success'])
         <span class="flex items-center gap-1.5 text-green-400">
             <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-            Twingate OK
+            Aurora OK
             @if(!empty($status['latency_ms'])) <span class="text-gray-500">{{ $status['latency_ms'] }}ms</span> @endif
         </span>
-        @elseif($status['success'] === false)
-        <span class="flex items-center gap-1.5 text-red-400">
-            <span class="w-2 h-2 rounded-full bg-red-500"></span>
-            Twingate DOWN
-        </span>
-        @else
-        <span class="text-gray-500">Checking...</span>
-        @endif
-        <span class="text-gray-600">{{ !empty($status['checked_at']) ? \Carbon\Carbon::parse($status['checked_at'])->diffForHumans() : '' }}</span>
-    @elseif(is_array($status) && isset($status['error']))
-        <span class="text-gray-600">daemon offline</span>
     @else
-        <span class="text-gray-600">—</span>
+        <span class="flex items-center gap-1.5 text-amber-400">
+            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+            Aurora unreachable
+        </span>
+    @endif
+
+    @if($daemonOk && !empty($status['checked_at']))
+        <span class="text-gray-600">{{ \Carbon\Carbon::parse($status['checked_at'])->diffForHumans() }}</span>
     @endif
 </div>

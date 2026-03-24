@@ -55,7 +55,15 @@
         <table class="w-full text-sm">
             <thead>
                 <tr class="border-b border-gray-800 text-gray-400 text-xs uppercase tracking-wide">
-                    <th class="px-4 py-3 text-left w-10">Sync</th>
+                    <th class="px-4 py-3 text-left w-10">
+                        <input
+                            type="checkbox"
+                            wire:click="{{ count(array_filter($filteredTables, fn($t) => $t['sync_data'])) === count($filteredTables) && count($filteredTables) > 0 ? 'deselectAll' : 'selectAll' }}"
+                            {{ count(array_filter($filteredTables, fn($t) => $t['sync_data'])) === count($filteredTables) && count($filteredTables) > 0 ? 'checked' : '' }}
+                            class="rounded accent-indigo-500 cursor-pointer"
+                            title="Select / deselect all visible"
+                        />
+                    </th>
                     <th class="px-4 py-3 text-left">Table</th>
                     <th class="px-4 py-3 text-right">Est. Rows</th>
                     <th class="px-4 py-3 text-right">Size</th>
