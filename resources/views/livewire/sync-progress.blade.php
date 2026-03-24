@@ -97,8 +97,17 @@
                         default   => 'bg-gray-600',
                     };
                 @endphp
-                <tr class="{{ $t['status'] === 'running' ? 'bg-indigo-950/20' : '' }}">
-                    <td class="px-4 py-2 font-mono text-white">{{ $t['table_name'] }}</td>
+                <tr class="{{ $t['status'] === 'running' ? 'bg-indigo-950/40 border-l-2 border-indigo-500' : '' }}">
+                    <td class="px-4 py-2 font-mono text-white">
+                        @if($t['status'] === 'running')
+                            <span class="inline-flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
+                                {{ $t['table_name'] }}
+                            </span>
+                        @else
+                            {{ $t['table_name'] }}
+                        @endif
+                    </td>
                     <td class="px-4 py-2 text-right text-gray-400 text-xs">
                         {{ number_format($t['rows_synced']) }}/{{ number_format($t['rows_total']) }}
                     </td>

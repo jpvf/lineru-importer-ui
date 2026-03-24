@@ -25,8 +25,17 @@ class SyncProgress extends Component
         $data = $client->getProgress();
 
         $this->job      = $data['job']      ?? null;
-        $this->tables   = $data['tables']   ?? [];
         $this->twingate = $data['twingate'] ?? null;
+
+        // Keep only the latest log entry per table (highest id wins)
+        $latest = [];
+        foreach ($data['tables'] ?? [] as $row) {
+            $name = $row['table_name'];
+            if (!isset($latest[$name]) || $row['id'] > $latest[$name]['id']) {
+                $latest[$name] = $row;
+            }
+        }
+        $this->tables = array_values($latest);
     }
 
     public function start(): void
